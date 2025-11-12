@@ -32,6 +32,8 @@ public class SphereMovement : MonoBehaviour
         // Captura intenção de pular apenas com a barra de espaço
         if (Input.GetKeyDown(KeyCode.Space))
             wantJump = true;
+        if (Input.GetKeyUp(KeyCode.Space))
+            wantJump = false;
     }
 
     void FixedUpdate()

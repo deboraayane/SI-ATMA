@@ -35,8 +35,6 @@ public class AnimationStateController : MonoBehaviour
             animator.SetBool(isJumpingParam, true);
             inAir = true;
         }
-
-        // Ao aterrissar, resetar estado de pulo
         if (inAir && IsGrounded())
         {
             animator.SetBool(isJumpingParam, false);
