@@ -9,7 +9,11 @@ public class Spheres : MonoBehaviour
     // NOVO: Clipe de Voz/Diálogo (MAIS LONGO)
     public AudioClip voiceClip;
 
-    [Range(0f, 1f)] public float sfxVolume = 1f;
+    // NOVO: Volume exclusivo para o SFX de Coleta
+    [Range(0f, 2f)] public float collectSfxVolume = 2f;
+
+    // Volume para o Clipe de Voz (reutilizando a variável anterior ou criando uma nova se preferir)
+    [Range(0f, 1f)] public float voiceVolume = 1f;
 
     public float fadeDuration = 0.5f;
 
@@ -21,12 +25,11 @@ public class Spheres : MonoBehaviour
         {
             playerInventory.SphereCollected();
 
-            // 1. Toca o EFEITO SONORO (SFX)
+            // 1. Toca o EFEITO SONORO (SFX) usando a nova variável 'collectSfxVolume'
             if (collectSfx != null)
-                AudioSource.PlayClipAtPoint(collectSfx, transform.position, Mathf.Clamp01(sfxVolume));
+                AudioSource.PlayClipAtPoint(collectSfx, transform.position, Mathf.Clamp01(collectSfxVolume));
 
             // 2. Toca o CLIPE DE VOZ logo em seguida
-            // Usamos uma Coroutine para um pequeno atraso, se o clipe for longo.
             StartCoroutine(PlayVoiceAfterSfx());
 
             // 3. Inicia o Fade (e a destruição, que é mais longa que o áudio)
@@ -40,11 +43,10 @@ public class Spheres : MonoBehaviour
         if (voiceClip != null)
         {
             // Opcional: Pequeno atraso para garantir que o SFX curto comece primeiro.
-            // 0.1s é geralmente o suficiente para um SFX rápido.
             yield return new WaitForSeconds(0.1f);
 
-            // Toca a voz
-            AudioSource.PlayClipAtPoint(voiceClip, transform.position, Mathf.Clamp01(sfxVolume));
+            // Toca a voz usando 'voiceVolume'
+            AudioSource.PlayClipAtPoint(voiceClip, transform.position, Mathf.Clamp01(voiceVolume));
         }
         yield return null;
     }
@@ -87,7 +89,7 @@ public class Spheres : MonoBehaviour
                 if (mats[i].HasProperty("_Color"))
                 {
                     Color c = startColors[i];
-                    c.a = Mathf.Lerp(1f, 0f, u);
+                    c.a = Mathf.Lerp(2f, 0f, u);
                     mats[i].color = c;
                 }
             }
