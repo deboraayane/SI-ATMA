@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 19681329}
   - component: {fileID: 19681330}
   - component: {fileID: 19681332}
+  - component: {fileID: 19681333}
   m_Layer: 0
   m_Name: character
   m_TagString: Player
@@ -295,6 +296,14 @@ MonoBehaviour:
   OnSphereCollected:
     m_PersistentCalls:
       m_Calls: []
+--- !u!81 &19681333
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19681324}
+  m_Enabled: 1
 --- !u!1 &24585414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4961241221372467197, guid: ede51eb134c994446b52919f27574134, type: 3}
@@ -5836,12 +5845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   collectSfx: {fileID: 0}
   voiceClip: {fileID: 0}
-  sfxVolume: 1
-  voiceBoost: 1.2
+  sfxVolume: 1000
   fadeDuration: 0.5
-  sceneColorFilter: {fileID: 0}
-  filterColor: {r: 0, g: 1, b: 1, a: 0.3}
-  filterHoldTime: 0.3
 --- !u!4 &1261205252
 Transform:
   m_ObjectHideFlags: 0
@@ -5908,12 +5913,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjCollect
   collectSfx: {fileID: 0}
   voiceClip: {fileID: 0}
-  sfxVolume: 1
-  voiceBoost: 1.2
+  sfxVolume: 1000
   fadeDuration: 0.5
-  sceneColorFilter: {fileID: 0}
-  filterColor: {r: 0, g: 1, b: 1, a: 0.3}
-  filterHoldTime: 0.3
 --- !u!114 &1261205255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5993,7 +5994,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1273964985}
   - component: {fileID: 1273964984}
-  - component: {fileID: 1273964983}
   - component: {fileID: 1273964986}
   - component: {fileID: 1273964987}
   m_Layer: 0
@@ -6003,14 +6003,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1273964983
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273964982}
-  m_Enabled: 1
 --- !u!20 &1273964984
 Camera:
   m_ObjectHideFlags: 0
@@ -7833,15 +7825,15 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 5009cb990476599498561aef9bea36e3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.03
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 30
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -13882,6 +13874,14 @@ PrefabInstance:
       value: Sphere 1
       objectReference: {fileID: 0}
     - target: {fileID: 1191239684766156036, guid: f44498b5222b7f94bae7ff4193e08bbb, type: 3}
+      propertyPath: sfxVolume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191239684766156036, guid: f44498b5222b7f94bae7ff4193e08bbb, type: 3}
+      propertyPath: voiceBoost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191239684766156036, guid: f44498b5222b7f94bae7ff4193e08bbb, type: 3}
       propertyPath: filterColor.a
       value: 1
       objectReference: {fileID: 0}
@@ -13899,11 +13899,11 @@ PrefabInstance:
       objectReference: {fileID: 445246455}
     - target: {fileID: 9163168692552713539, guid: f44498b5222b7f94bae7ff4193e08bbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -60.6
+      value: -58.85
       objectReference: {fileID: 0}
     - target: {fileID: 9163168692552713539, guid: f44498b5222b7f94bae7ff4193e08bbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.68
+      value: 17.21
       objectReference: {fileID: 0}
     - target: {fileID: 9163168692552713539, guid: f44498b5222b7f94bae7ff4193e08bbb, type: 3}
       propertyPath: m_LocalPosition.z

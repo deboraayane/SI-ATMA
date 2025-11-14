@@ -1,23 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class Spheres : MonoBehaviour
 {
-  
+    // Efeito sonoro de Coleta (CURTO)
     public AudioClip collectSfx;
-    public AudioClip voiceClip;
-    public float sfxVolume = 1f;
 
-    [Range(1f, 2f)] public float voiceBoost = 1.2f;
+    // NOVO: Clipe de Voz/Diálogo (MAIS LONGO)
+    public AudioClip voiceClip;
+
+    [Range(0f, 1f)] public float sfxVolume = 1f;
 
     public float fadeDuration = 0.5f;
-
-   
-    public SceneColorFilter sceneColorFilter; 
-    public Color filterColor = new Color(0f, 1f, 1f, 0.3f); 
-    public float filterHoldTime = 0.3f; 
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,49 +21,39 @@ public class Spheres : MonoBehaviour
         {
             playerInventory.SphereCollected();
 
+            // 1. Toca o EFEITO SONORO (SFX)
             if (collectSfx != null)
                 AudioSource.PlayClipAtPoint(collectSfx, transform.position, Mathf.Clamp01(sfxVolume));
 
+            // 2. Toca o CLIPE DE VOZ logo em seguida
+            // Usamos uma Coroutine para um pequeno atraso, se o clipe for longo.
             StartCoroutine(PlayVoiceAfterSfx());
 
-            
-            if (sceneColorFilter != null)
-                StartCoroutine(ApplyAndClearFilter());
-
+            // 3. Inicia o Fade (e a destruição, que é mais longa que o áudio)
             StartCoroutine(FadeAndDestroy());
         }
     }
 
-    
-    IEnumerator ApplyAndClearFilter()
-    {
-        
-        sceneColorFilter.TriggerFilter(filterColor);
-
-        
-        yield return new WaitForSeconds(filterHoldTime);
-
-        
-        sceneColorFilter.ClearFilter();
-    }
-
-
+    // NOVA COROUTINE: Toca o clipe de voz após um pequeno atraso
     IEnumerator PlayVoiceAfterSfx()
     {
         if (voiceClip != null)
         {
+            // Opcional: Pequeno atraso para garantir que o SFX curto comece primeiro.
+            // 0.1s é geralmente o suficiente para um SFX rápido.
             yield return new WaitForSeconds(0.1f);
 
-            float finalVoiceVolume = sfxVolume * voiceBoost;
-
-            AudioSource.PlayClipAtPoint(voiceClip, transform.position, Mathf.Clamp01(finalVoiceVolume));
+            // Toca a voz
+            AudioSource.PlayClipAtPoint(voiceClip, transform.position, Mathf.Clamp01(sfxVolume));
         }
         yield return null;
     }
 
+    // Restante do código FadeAndDestroy() permanece o mesmo...
     IEnumerator FadeAndDestroy()
     {
-       
+        // ... (Seu código de Fade e Destruição) ...
+
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
@@ -96,6 +80,7 @@ public class Spheres : MonoBehaviour
             t += Time.deltaTime;
             float u = Mathf.Clamp01(t / fadeDuration);
 
+            // aplica fade alpha
             for (int i = 0; i < mats.Length; i++)
             {
                 if (mats[i] == null) continue;
